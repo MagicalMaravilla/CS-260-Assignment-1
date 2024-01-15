@@ -20,17 +20,23 @@ public:
 class Bag {
 private:
     std::vector<Marble> marbles; // Vector to store marbles
+    const size_t maxCapacity = 1000000; // Maximum capacity aka Big Boi Bag
 
 public:
     // Adds a Marble object to the bag
+    // Throws an exception if the bag reaches its maximum capacity
     void addMarble(const Marble& marble) {
+        if (marbles.size() >= maxCapacity) {
+            throw std::overflow_error("Bag has reached its maximum capacity");
+        }
         marbles.push_back(marble);
     }
 
     // Removes and returns a Marble object from the bag randomly
+    // Throws an exception if the bag is empty
     Marble removeMarble() {
         if (marbles.empty()) {
-            throw std::out_of_range("Bag is empty"); // Throws an exception if the bag is empty
+            throw std::out_of_range("Bag is empty");
         }
         int index = rand() % marbles.size(); // Randomly selects an index
         Marble m = marbles[index];           // Retrieves the marble at the index
